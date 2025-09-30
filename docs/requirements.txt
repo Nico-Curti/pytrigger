@@ -1,0 +1,6 @@
+sphinx
+sphinx-rtd-theme
+sphinxcontrib-napoleon
+sphinxcontrib-programoutput
+nbsphinx
+IPython
