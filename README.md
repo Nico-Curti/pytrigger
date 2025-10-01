@@ -69,7 +69,7 @@ The full list of available flags for the customization of the command line could
 
 ```bash
 $ trigger --help
-usage: trigger [-h] --table TABLE [--select SELECT [SELECT ...]] [--where WHERE [WHERE ...]] [--orderby ORDERBY] [--order {ASC,DESC}] [--version]
+usage: trigger [-h] --table TABLE [--select SELECT [SELECT ...]] [--where WHERE [WHERE ...]] [--orderby ORDERBY] [--order {ASC,DESC}] [--limit LIMIT] [--version]
 
 Python package for the TRIGGER EU Project analysis.
 
@@ -85,6 +85,8 @@ optional arguments:
                         Name of the column to use for the ordering of the results
   --order {ASC,DESC}, -o {ASC,DESC}
                         Order of the result
+  --limit LIMIT, -l LIMIT
+                        Maximum number of records to retrieve from the request
   --version, -v         Get the current version installed
 ```
 
@@ -110,7 +112,7 @@ with TriggerDB() as db:
       'email': '=DE000086'
     },
     order_by='month',
-    order='ASC'
+    order='ASC',
   )
 ```
 
@@ -152,6 +154,7 @@ Description of the folders related to the `Python` version.
 | **Directory**                                                                        |  **Description**                                                             |
 |:-------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------|
 | [trigger](https://github.com/Nico-Curti/pytrigger/blob/main/trigger)                 | List of `Python` scripts for `trigger` database management and analysis.     |
+| [examples](https://github.com/Nico-Curti/pytrigger/blob/main/docs/source/examples)   | List of `Python` examples as Jupyter Notebook.                               |
 
 ## Contribution
 
