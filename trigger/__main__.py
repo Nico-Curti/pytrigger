@@ -115,6 +115,19 @@ def parse_args():
     )
   )
 
+  # trigger --limit <n>
+  parser.add_argument(
+    '--limit', '-l',
+    dest='limit',
+    type=int,
+    action='store',
+    required=False,
+    default=None,
+    help=(
+      'Maximum number of records to retrieve from the request'
+    ),
+  )
+
   # trigger --version
   parser.add_argument(
     '--version', '-v',
@@ -166,6 +179,7 @@ def main ():
   } if args.where else None
   orderby = args.orderby
   order = args.order
+  limit = args.limit
 
   # run the query on the database instance
   with TriggerDB() as db:
@@ -175,6 +189,7 @@ def main ():
         .where(**where)
         .order_by(orderby)
         .order(order)
+        .limit(limit)
         .fetch()
     )
     print(

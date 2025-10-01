@@ -19,7 +19,8 @@ For more information about the project visit the dedicated page here_ or if you 
    :maxdepth: 2
    :caption: Contents:
 
-   api/modules
+   API/modules
+   examples/demo.ipynb
 
 Contributors
 ============

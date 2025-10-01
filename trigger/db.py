@@ -25,7 +25,7 @@ __all__ = [
 
 # main parameter of the server
 SERVER_PORT=8083
-SERVER_HOST='https://trigger-io.difa.unibo.it/api/'
+SERVER_HOST='https://trigger-io.difa.unibo.it/api'
 
 class TriggerDB (object):
   '''
@@ -60,7 +60,7 @@ class TriggerDB (object):
       res = (
         db.from_('myair')
           .select('year', 'month')
-          .where(year='=2025', month='9', day='10', hour='>=0', email='DE000086')
+          .where(year='=2025', month='=9', day='=10', hour='>=0', email='=DE000086')
           .order_by('month')
           .asc()
           .fetch()
@@ -271,6 +271,7 @@ class TriggerDB (object):
       where=None,
       order_by=None,
       order='ASC',
+      limit=100000,
     )
   
   def num_elements (self, table: str) -> int:
@@ -299,7 +300,8 @@ class TriggerDB (object):
     columns: Union[List[str], str] = '*',
     where: Dict[str, Union[str, int, float]] = None,
     order_by: str = None,
-    order: str = 'ASC'
+    order: str = 'ASC',
+    limit: int = 100,
   ) -> dict:
     '''
     Select interface for the GET query of the available tables
@@ -320,6 +322,9 @@ class TriggerDB (object):
 
     order: str
       Ascending or descending order
+
+    limit: int
+      Maximum number of records to retrieve
 
     Returns
     -------
@@ -343,7 +348,8 @@ class TriggerDB (object):
 
     # check order_by column
     if order_by:
-      self._check_column(table=table, column=order_by)
+      for col in order_by.split(','):
+        self._check_column(table=table, column=col)
 
     # SELECT
     params = {
@@ -362,6 +368,9 @@ class TriggerDB (object):
     if order_by:
       params['orderBy'] = order_by
       params['order'] = order.upper()
+
+    # LIMIT
+    params['limit'] = limit
 
     url = f'{SERVER_HOST}/{table}/'
     # send the buffered request
@@ -417,6 +426,7 @@ class QueryBuilder:
     self._where: Dict[str, str] = {}
     self._order_by: Optional[str] = None
     self._order: str = 'ASC'
+    self._limit: int = 100
 
   def select (self, *columns: str):
     '''
@@ -457,7 +467,8 @@ class QueryBuilder:
     column: str
       Column name to use for the ordering of the results
     '''
-    self.db._check_column(table=self.table, column=column)
+    for col in column.split(','):
+      self.db._check_column(table=self.table, column=col)
     self._order_by = column
     return self
 
@@ -483,6 +494,13 @@ class QueryBuilder:
       raise ValueError('Invalid ordering')
     self._order = val
     return self
+  
+  def limit (self, val: int):
+    '''
+    Set the maximum number of records to retrieve
+    '''
+    self._limit = val
+    return self
 
   def fetch (self) -> dict:
     '''
@@ -498,5 +516,6 @@ class QueryBuilder:
       columns=self._columns,
       where=self._where if self._where else None,
       order_by=self._order_by,
-      order=self._order
+      order=self._order,
+      limit=self._limit,
     )

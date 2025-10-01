@@ -123,7 +123,7 @@ with TriggerDB() as db:
   res = (
     db.from_('myair')
       .select('year', 'month')
-      .where(year='=2025', month='9', day='10', hour='>=0', email='DE000086')
+      .where(year='=2025', month='=9', day='=10', hour='>=0', email='=DE000086')
       .order_by('month')
       .asc()
       .fetch()
