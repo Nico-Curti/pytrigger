@@ -26,6 +26,7 @@ __all__ = [
 # main parameter of the server
 SERVER_PORT=8083
 SERVER_HOST='https://trigger-io.difa.unibo.it/api'
+MAXIMUM_LIMIT = 10_000
 
 class TriggerDB (object):
   '''
@@ -370,6 +371,12 @@ class TriggerDB (object):
       params['order'] = order.upper()
 
     # LIMIT
+    if limit > MAXIMUM_LIMIT:
+      print((
+        f'{ORANGE_COLOR_CODE}[WARN]{RESET_COLOR_CODE} Maximum limit exceeded. '
+        f'Given {limit} against a maximum of {MAXIMUM_LIMIT}. Automated downgrade to the maximum value'
+      ))
+      limit = MAXIMUM_LIMIT
     params['limit'] = limit
 
     url = f'{SERVER_HOST}/{table}/'
