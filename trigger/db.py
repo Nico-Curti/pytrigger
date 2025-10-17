@@ -72,7 +72,7 @@ class TriggerDB (object):
     'myair': ['email', 'userId', 'year','month','day','hour','minute','second','pm1','pm25','pm10','pc03','pc05','pc1','pc25','pc5','pc10','temperature','humidity','pressure','sound','uvb','light'],
     'ecg': ['email', 'userId', 'year','month','day','hour','minute','second','microsecond','ecg'],
     'ppg': ['email', 'userId', 'year','month','day','hour','minute','second','microsecond','ppg'],
-    'gsp': ['email', 'userId', 'year', 'month', 'day', 'hour', 'minute', 'second', 'longitude', 'latitude', 'accuracy'],
+    'gps': ['email', 'userId', 'year', 'month', 'day', 'hour', 'minute', 'second', 'longitude', 'latitude', 'accuracy'],
     'sleep': ['email', 'userId', 'year', 'month', 'day', 'hour', 'minute', 'second', 'sleepduration', 'awake', 'insomnia', 'remsleep', 'lightsleep', 'deepsleep', 'sleepquality'],
     'smartwatchlow': ['email', 'userId', 'year', 'month', 'day', 'hour', 'minute', 'second', 'step', 'cal', 'bphigh', 'bplow', 'bodytemp'],
     'smartwatchhigh': ['email', 'userId', 'year', 'month', 'day', 'hour', 'minute', 'second', 'heartrate', 'sleeprate', 'oxygens'],
