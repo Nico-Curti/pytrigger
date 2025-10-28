@@ -429,7 +429,7 @@ class QueryBuilder:
 
     self.db = db
     self.table = table
-    self._columns: List[str] = ['*']
+    self._columns: List[str] = '*'
     self._where: Dict[str, str] = {}
     self._order_by: Optional[str] = None
     self._order: str = 'ASC'
