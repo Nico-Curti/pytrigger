@@ -32,6 +32,12 @@ class TriggerDB (object):
   '''
   Interface for Trigger Server APIs
 
+  Parameters
+  ----------
+  cfg : dict (default := None)
+    Dictionary with user credentials in the form
+    {'email': 'username', 'password': 'secret_pwd'}
+
   Examples
   --------    
   Example of standard mode connection and query::
@@ -81,16 +87,20 @@ class TriggerDB (object):
 
   _valid_functions = {'AVG', 'SUM', 'COUNT', 'MIN', 'MAX'}
 
-  def __init__ (self):
+  def __init__ (self, cfg : str = None):
 
-    # Running these lines at the import the script will
-    # load or ask the credentials for the account
-    try:
-      credentials = ensure_credentials_on_first_use()
-    except Exception as e:
-      print(f'{RED_COLOR_CODE}[ERROR]{RESET_COLOR_CODE} Invalid credentials found')
-      print(e)
-      raise ValueError('Missing credential infos')
+    if cfg is None:
+      # Running these lines at the import the script will
+      # load or ask the credentials for the account
+      try:
+        credentials = ensure_credentials_on_first_use()
+      except Exception as e:
+        print(f'{RED_COLOR_CODE}[ERROR]{RESET_COLOR_CODE} Invalid credentials found')
+        print(e)
+        raise ValueError('Missing credential infos')
+    # read the credentials from the configuration file provided
+    else:
+      credentials = cfg
 
     # set the url of the API
     api_url = f'{SERVER_HOST}/auth'
