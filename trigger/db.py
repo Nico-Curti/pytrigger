@@ -87,7 +87,7 @@ class TriggerDB (object):
 
   _valid_functions = {'AVG', 'SUM', 'COUNT', 'MIN', 'MAX'}
 
-  def __init__ (self, cfg : str = None):
+  def __init__ (self, cfg : dict = None):
 
     if cfg is None:
       # Running these lines at the import the script will
