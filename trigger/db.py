@@ -26,7 +26,7 @@ __all__ = [
 # main parameter of the server
 SERVER_PORT=8083
 SERVER_HOST='https://trigger-io.difa.unibo.it/api'
-MAXIMUM_LIMIT = 10_000
+MAXIMUM_LIMIT=10_000
 
 class TriggerDB (object):
   '''
@@ -474,8 +474,7 @@ class QueryBuilder:
     column: str
       Column name to use for the ordering of the results
     '''
-    for col in column.split(','):
-      self.db._check_column(table=self.table, column=col)
+    self.db._check_column(table=self.table, column=column)
     self._order_by = column
     return self
 
